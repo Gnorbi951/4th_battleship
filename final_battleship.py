@@ -41,18 +41,19 @@ def print_table(table):
 def check_for_hit(background_map,row,col):
    if background_map[row-1][col-1] != 0:
        return True
+       print("its a hit")
    else:
        return False
   
-def value_change(table,row,col):
-   checkForHit = check_for_hit(table, row, col)
+def value_change(main_map, background_map, row,col):
+   checkForHit = check_for_hit(background_map, row, col)
    if checkForHit == True:
-       table[row-1][col-1]="x" #strig literal kimehet akár globális változóba
+       main_map[row-1][col-1]="x" #strig literal kimehet akár globális változóba
        print("You've hit the ship")
    elif checkForHit == False:
-       table[row-1][col-1]="M"
+       main_map[row-1][col-1]="M"
        print("You missed")
-   return table #nem feltétlenül kell
+   return main_map #nem feltétlenül kell
 
 def random_generator(size):
    rotation = random.randint(0, 1)
@@ -128,7 +129,7 @@ def main():
     while win_condition(hit_count) == False:
         row, col = user_input()
         print_table(backgound_map)
-        print_table(value_change(main_map, row, col))
+        print_table(value_change(main_map, backgound_map, row, col))
         if check_for_hit(backgound_map, row, col) == True:
             hit_count += 1
 
