@@ -47,7 +47,7 @@ def print_table(table):
      i+=1
 
 def check_for_hit(background_map,row,col):
-   if background_map[row-1][col-1] != 0:
+   if background_map[row-1][col-1] != 0: 
        return True
        print("its a hit")
    else:
@@ -119,18 +119,31 @@ def random_ship_position():
        i+=1
    return backgroundList
 
-  
-def win_condition(hit_count):
+'''def win_condition(hit_count):
    if hit_count==14:
        return True
    else:
-       return False
+       return False'''
+
+
+def win_condition(hits_list,win_condition_numbers):
+    sorted_list = sorted(hits_list)
+    if sorted_list==win_condition_numbers:
+        print("csoda")
+    else:
+        print("wrong")
+
+
+
 
 
 
 
 def main():
-    hit_count=0
+    win_condition=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+    player_hits=[1,4,2,1]
+    ai_hits=[]
+   # hit_count=0
     main_map = create_table()
     backgound_map= random_ship_position()
     print_table(main_map)
@@ -143,5 +156,8 @@ def main():
 
     print("Congratulations, You've won!")
 
-main()
+#main()
 #test
+win_condition_numbers=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+player_hits= [1,4,2,1,1,3,2,2,3,3,3,4,4,4]
+win_condition(player_hits,win_condition_numbers)
