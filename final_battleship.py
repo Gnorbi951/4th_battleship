@@ -1,20 +1,28 @@
 import random
 
-def user_input():
-  b = True
-  while b:
-      try:
-          row = int(input("Row: "))
-          if row >= 10 or row < 1:
-              raise Exception
-          col = int(input("Column: "))
-          if col >= 10 or col < 1:
-              raise Exception
-          b = False #incorrect input
-      except:
+def user_input(): #exitet ne felejtsd el
+    row_input = True
+    col_input = True
+    while col_input:
+        try:
+            col = int(input("Column: "))
+            if col >= 10 or col < 1:
+                raise Exception
+            col_input = False
+        except:
+            print("Input numbers between 1 and 9")
+            continue
+    while row_input:
+        try:
+            row = int(input("Row: "))
+            if row >= 10 or row < 1:
+                raise Exception
+            row_input = False
+        except:
           print("Input numbers between 1 and 9")
           continue
-  return row, col
+        
+    return row, col
 
 def create_table():
  i=0
