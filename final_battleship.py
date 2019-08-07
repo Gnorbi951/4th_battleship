@@ -182,14 +182,12 @@ def player_placement_input(id, size): # return shiplist with 5 items
             
     return ship_list
 
-print(player_placement_input(1,3))
-    
 
 def player_ship_placement():
     backgroundList = create_table()
 
     i=0
-    while i < 2:
+    while i < 4:
         shipParameter=[]
         if i < 2:
             size=3
@@ -200,6 +198,14 @@ def player_ship_placement():
             size=4
             shipParameter = player_placement_input(i+1, size)
             print(shipParameter)
+
+        if check_for_ships(shipParameter,backgroundList)==True:
+            place_ships(shipParameter,backgroundList)
+            print_table(backgroundList)
+        else:
+            print("Ships merge!")
+            print_table(backgroundList)
+            i-=1
         i += 1
         
         
