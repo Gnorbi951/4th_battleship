@@ -27,6 +27,7 @@ def user_input(player_tips=None): #need of checking the already guessed values
                 continue
         isItGuessed=is_it_guessed(player_tips,row,col)#check the guessed numbers
     store_tips(player_tips,row,col) #store the guessed numbers in pairs
+    
     return row, col
 
 def create_table():
@@ -58,10 +59,11 @@ def check_for_hit(background_map,row,col):
    else:
        return False
   
-def value_change(main_map, background_map, row,col):
+def value_change(main_map, background_map, row,col,list_hits):
    checkForHit = check_for_hit(background_map, row, col)
    if checkForHit == True:
        main_map[row-1][col-1]="x" #strig literal kimehet akár globális változóba
+       win_condition_change(list_hits,background_map[row-1][col-1])
        print("You've hit the ship")
    elif checkForHit == False:
        main_map[row-1][col-1]="M"
@@ -187,6 +189,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
 
 
 def player_ship_placement():
+
     backgroundList = create_table()
 
     i=0
@@ -210,35 +213,34 @@ def player_ship_placement():
             print_table(backgroundList)
             i-=1
         i += 1
-        
-        
+                
         place_ships(shipParameter,backgroundList)
+
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
     isItGuessed=False
     i=0
     while i < len(list_tips):
         if guessed_pair==list_tips[i]:
-            isItGuessed=True
-            
-        print("guessed_pair,list_tips")
-        print(guessed_pair,list_tips)
-        print(len(list_tips))
+            isItGuessed=True           
         i+=1
     return isItGuessed
         
 def store_tips(list_tips,col,row):#Store the guessed values in pairs
     tmp_pair=(col,row)
-    for tips in list_tips:
-        if tmp_pair==(tips.first,tips.second):
-            list_tips.append(tmp_pair)
+    if tmp_pair not in list_tips:
+        list_tips.append(tmp_pair)
     
-    
+def win_condition_change(list_hits,id_of_ship):
+    list_hits.append(id_of_ship)
+    print(list_hits)
+
+
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
     player_tips=[]
-    player_hits=[1,4,2,1]
+    player_hits=[1,4,2,1,2,1,2,3,3,3,4,4,4]
     ai_tips=[]
     ai_hits=[]
    # hit_count=0
@@ -248,7 +250,7 @@ def main():
     while win_condition(player_hits,win_condition_numberes) == False:
         row, col = user_input(player_tips)
         print_table(backgound_map)
-        print_table(value_change(main_map, backgound_map, row, col))
+        print_table(value_change(main_map, backgound_map, row, col,player_hits))
         #if check_for_hit(backgound_map, row, col) == True:
             #hit_count += 1
 
