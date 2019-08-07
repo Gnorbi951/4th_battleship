@@ -160,6 +160,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
             ship_list[3] = int(input("Column: "))
             if ship_list[3] >= 10 or ship_list[3] < 1:
                 raise Exception
+            ship_list[3] = ship_list[3] -1
             col_input = False
         except:
             print("Input numbers between 1 and 9")
@@ -169,6 +170,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
             ship_list[4] = int(input("Row: "))
             if ship_list[4] >= 10 or ship_list[4] < 1:
                 raise Exception
+            ship_list[4] = ship_list[4] -1
             row_input = False
         except:
           print("Input numbers between 1 and 9")
@@ -185,12 +187,11 @@ def player_placement_input(id, size): # return shiplist with 5 items
             
     return ship_list
 
-
 def player_ship_placement():
     backgroundList = create_table()
 
     i=0
-    while i < 4:
+    while i <= 4:
         shipParameter=[]
         if i < 2:
             size=3
@@ -200,19 +201,16 @@ def player_ship_placement():
         else:
             size=4
             shipParameter = player_placement_input(i+1, size)
-            print(shipParameter)
+            
 
-        if check_for_ships(shipParameter,backgroundList)==True:
-            place_ships(shipParameter,backgroundList)
-            print_table(backgroundList)
-        else:
-            print("Ships merge!")
-            print_table(backgroundList)
-            i-=1
         i += 1
         
-        
+        print_table(backgroundList)
         place_ships(shipParameter,backgroundList)
+    return backgroundList
+
+player_ship_placement()
+
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
     isItGuessed=False
@@ -231,7 +229,7 @@ def store_tips(list_tips,col,row):#Store the guessed values in pairs
     tmp_pair=(col,row)
     #check if exist
     list_tips.append(tmp_pair)
-    
+"""  
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
@@ -254,7 +252,7 @@ def main():
 
 main()
 #lol
-
+"""
 
 
 
