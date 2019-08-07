@@ -80,74 +80,83 @@ def random_generator(size):
    
    return rotation,positionH,positionV
 
+def check_for_ships(shipParameter,backgroundList): #randomshipposition
+    placable=True
+    j=0
+    while j < shipParameter[1]:
+        if shipParameter[2]==0:
+            if backgroundList[shipParameter[3]+j][shipParameter[4]]!=0:
+                placable=False
+        elif shipParameter[2]==1:
+            if backgroundList[shipParameter[3]][shipParameter[4]+j]!=0:
+                placable=False
+        j+=1
+    return placable
+
+def place_ships(shipParameter,backgroundList): #randomshipposition
+    k=0
+    while k < shipParameter[1]:
+        if shipParameter[2]==0:
+            backgroundList[shipParameter[3]+k][shipParameter[4]]=shipParameter[0]  # ez írja át a 0-t IDra
+        elif shipParameter[2]==1:
+            backgroundList[shipParameter[3]][shipParameter[4]+k]=shipParameter[0]
+        k+=1
+                
 def ship_parameter(id, size):
    rotation,positionH,positionV=random_generator(size)
    shipList = [id, size, rotation, positionH, positionV]
    return shipList
 
 def random_ship_position():
-   backgroundList = create_table()
-   i=0
-   while i < 4:
-       shipParameter=[]
-       if i < 2:
-           size=3
-           shipParameter = ship_parameter(i+1,size)
-       else:
-           size=4
-           shipParameter = ship_parameter(i+1,size)
-       j=0
-       placable=True
-       while j < shipParameter[1]:
-           if shipParameter[2]==0:
-               if backgroundList[shipParameter[3]+j][shipParameter[4]]!=0:
-                   placable=False
-           elif shipParameter[2]==1:
-               if backgroundList[shipParameter[3]][shipParameter[4]+j]!=0:
-                   placable=False
-           j+=1
-       if placable==True:
-           k=0
-           while k < shipParameter[1]:
-               if shipParameter[2]==0:
-                   backgroundList[shipParameter[3]+k][shipParameter[4]]=shipParameter[0]  # ez írja át a 0-t IDra
-               elif shipParameter[2]==1:
-                   backgroundList[shipParameter[3]][shipParameter[4]+k]=shipParameter[0]
-               k+=1
-       else:
-           i-=1
-       i+=1
-   return backgroundList
-
-'''def win_condition(hit_count):
-   if hit_count==14:
-       return True
-   else:
-       return False'''
-
+    backgroundList = create_table()
+    i=0
+    while i < 4:
+        shipParameter=[]
+        if i < 2:
+            size=3
+            shipParameter = ship_parameter(i+1,size)
+        else:
+            size=4
+            shipParameter = ship_parameter(i+1,size)
+        
+        if check_for_ships(shipParameter,backgroundList)==True:
+            place_ships(shipParameter,backgroundList)
+        else:
+            i-=1
+        i+=1
+    return backgroundList
 
 def win_condition(hits_list,win_condition_numbers):
     sorted_list = sorted(hits_list)
     if sorted_list==win_condition_numbers:
-        print("csoda")
+        return True
     else:
-        print("wrong")
+        return False
 
+def whose_turn_is_it(current_turn):
+    if current_turn%2==0:
+        return "player"
+    else:
+        return "AI"
+  
+def start_game(): #PhaseOne(Initializing the tables)
+    random_ship_position()
 
-
-
+def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
+    pass
 
 
 
 def main():
-    win_condition=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+    current_turn=0
+    win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
     player_hits=[1,4,2,1]
     ai_hits=[]
    # hit_count=0
     main_map = create_table()
     backgound_map= random_ship_position()
     print_table(main_map)
-    while win_condition(hit_count) == False:
+    while win_condition(player_hits,win_condition_numberes) == False:
         row, col = user_input()
         print_table(backgound_map)
         print_table(value_change(main_map, backgound_map, row, col))
@@ -156,8 +165,7 @@ def main():
 
     print("Congratulations, You've won!")
 
-#main()
+main()
 #test
-win_condition_numbers=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
-player_hits= [1,4,2,1,1,3,2,2,3,3,3,4,4,4]
-win_condition(player_hits,win_condition_numbers)
+
+
