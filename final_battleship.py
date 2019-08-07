@@ -24,6 +24,8 @@ def user_input(): #exitet ne felejtsd el
         
     return row, col
 
+
+
 def create_table():
  i=0
  tomb = [] #tömböt row-ra
@@ -145,8 +147,73 @@ def start_game(): #PhaseOne(Initializing the tables)
 def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
     pass
 
+def player_placement_input(id, size): # return shiplist with 5 items
+    row_input = True
+    col_input = True
+    pos_input = True
+    ship_list = [id, size, 0, 0, 0,]
+    while col_input:
+        try:
+            ship_list[3] = int(input("Column: "))
+            if ship_list[3] >= 10 or ship_list[3] < 1:
+                raise Exception
+            col_input = False
+        except:
+            print("Input numbers between 1 and 9")
+            continue
+    while row_input:
+        try:
+            ship_list[4] = int(input("Row: "))
+            if ship_list[4] >= 10 or ship_list[4] < 1:
+                raise Exception
+            row_input = False
+        except:
+          print("Input numbers between 1 and 9")
+          continue
+    while pos_input:
+        try:
+            ship_list[2] = int(input("H = 1, V = 0: "))
+            if ship_list[2] == 0 or ship_list[2] == 1:
+                pos_input = False
+            else:
+                raise Exception
+        except:
+            print("Type 0 or 1")
+            
+    return ship_list
 
+print(player_placement_input(1,3))
+    
 
+def player_ship_placement():
+    backgroundList = create_table()
+
+    i=0
+    while i < 2:
+        shipParameter=[]
+        if i < 2:
+            size=3
+            shipParameter = player_placement_input(i+1, size)
+            place_ships(shipParameter,backgroundList)
+            print(shipParameter)
+        else:
+            size=4
+            shipParameter = player_placement_input(i+1, size)
+            print(shipParameter)
+        i += 1
+        
+        
+        place_ships(shipParameter,backgroundList)
+        
+    return backgroundList
+    
+
+player_map = player_ship_placement()
+print_table(player_map)
+
+# background map = ai_map
+# player_map = player back - ai guesses
+"""
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
@@ -155,6 +222,7 @@ def main():
    # hit_count=0
     main_map = create_table()
     backgound_map= random_ship_position()
+    
     print_table(main_map)
     while win_condition(player_hits,win_condition_numberes) == False:
         row, col = user_input()
@@ -164,8 +232,9 @@ def main():
             hit_count += 1
 
     print("Congratulations, You've won!")
-
 main()
 #test
+"""
+
 
 
