@@ -150,6 +150,69 @@ def start_game(): #PhaseOne(Initializing the tables)
 def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
     pass
 
+def player_placement_input(id, size): # return shiplist with 5 items
+    row_input = True
+    col_input = True
+    pos_input = True
+    ship_list = [id, size, 0, 0, 0,]
+    while col_input:
+        try:
+            ship_list[3] = int(input("Column: "))
+            if ship_list[3] >= 10 or ship_list[3] < 1:
+                raise Exception
+            col_input = False
+        except:
+            print("Input numbers between 1 and 9")
+            continue
+    while row_input:
+        try:
+            ship_list[4] = int(input("Row: "))
+            if ship_list[4] >= 10 or ship_list[4] < 1:
+                raise Exception
+            row_input = False
+        except:
+          print("Input numbers between 1 and 9")
+          continue
+    while pos_input:
+        try:
+            ship_list[2] = int(input("H = 1, V = 0: "))
+            if ship_list[2] == 0 or ship_list[2] == 1:
+                pos_input = False
+            else:
+                raise Exception
+        except:
+            print("Type 0 or 1")
+            
+    return ship_list
+
+
+def player_ship_placement():
+    backgroundList = create_table()
+
+    i=0
+    while i < 4:
+        shipParameter=[]
+        if i < 2:
+            size=3
+            shipParameter = player_placement_input(i+1, size)
+            place_ships(shipParameter,backgroundList)
+            print(shipParameter)
+        else:
+            size=4
+            shipParameter = player_placement_input(i+1, size)
+            print(shipParameter)
+
+        if check_for_ships(shipParameter,backgroundList)==True:
+            place_ships(shipParameter,backgroundList)
+            print_table(backgroundList)
+        else:
+            print("Ships merge!")
+            print_table(backgroundList)
+            i-=1
+        i += 1
+        
+        
+        place_ships(shipParameter,backgroundList)
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
     isItGuessed=False
