@@ -1,30 +1,33 @@
 import random
 
-def user_input(): #exitet ne felejtsd el
-    row_input = True
-    col_input = True
-    while col_input:
-        try:
-            col = int(input("Column: "))
-            if col >= 10 or col < 1:
-                raise Exception
-            col_input = False
-        except:
-            print("Input numbers between 1 and 9")
-            continue
-    while row_input:
-        try:
-            row = int(input("Row: "))
-            if row >= 10 or row < 1:
-                raise Exception
-            row_input = False
-        except:
-          print("Input numbers between 1 and 9")
-          continue
-        
+def user_input(player_tips=None): #need of checking the already guessed values
+  
+    isItGuessed=True# init
+    while isItGuessed==True:
+
+        row_input = True
+        col_input = True
+        while col_input:
+            try:
+                col = int(input("Column: "))
+                if col >= 10 or col < 1:
+                    raise Exception
+                col_input = False
+            except:
+                print("Input numbers between 1 and 9")
+                continue
+        while row_input:
+            try:
+                row = int(input("Row: "))
+                if row >= 10 or row < 1:
+                    raise Exception
+                row_input = False
+            except:
+                print("Input numbers between 1 and 9")
+                continue
+        isItGuessed=is_it_guessed(player_tips,row,col)#check the guessed numbers
+    store_tips(player_tips,row,col) #store the guessed numbers in pairs
     return row, col
-
-
 
 def create_table():
  i=0
@@ -210,37 +213,48 @@ def player_ship_placement():
         
         
         place_ships(shipParameter,backgroundList)
+def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
+    guessed_pair=(col,row)
+    isItGuessed=False
+    i=0
+    while i < len(list_tips):
+        if guessed_pair==list_tips[i]:
+            isItGuessed=True
+            
+        print("guessed_pair,list_tips")
+        print(guessed_pair,list_tips)
+        print(len(list_tips))
+        i+=1
+    return isItGuessed
         
-    return backgroundList
+def store_tips(list_tips,col,row):#Store the guessed values in pairs
+    tmp_pair=(col,row)
+    #check if exist
+    list_tips.append(tmp_pair)
     
-
-player_map = player_ship_placement()
-print_table(player_map)
-
-# background map = ai_map
-# player_map = player back - ai guesses
-"""
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+    player_tips=[]
     player_hits=[1,4,2,1]
+    ai_tips=[]
     ai_hits=[]
    # hit_count=0
     main_map = create_table()
     backgound_map= random_ship_position()
-    
     print_table(main_map)
     while win_condition(player_hits,win_condition_numberes) == False:
-        row, col = user_input()
+        row, col = user_input(player_tips)
         print_table(backgound_map)
         print_table(value_change(main_map, backgound_map, row, col))
-        if check_for_hit(backgound_map, row, col) == True:
-            hit_count += 1
+        #if check_for_hit(backgound_map, row, col) == True:
+            #hit_count += 1
 
     print("Congratulations, You've won!")
+
 main()
-#test
-"""
+#lol
+
 
 
 
