@@ -166,8 +166,10 @@ def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed alrea
         
 def store_tips(list_tips,col,row):#Store the guessed values in pairs
     tmp_pair=(col,row)
-    #check if exist
-    list_tips.append(tmp_pair)
+    for tips in list_tips:
+        if tmp_pair==(tips.first,tips.second):
+            list_tips.append(tmp_pair)
+    
     
 def main():
     current_turn=0
