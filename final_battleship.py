@@ -151,10 +151,11 @@ def start_game(): #PhaseOne(Initializing the tables)
 
 def turns(whose_turn_is_it, player_tips, main_map, background_map, player_hits):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
     if whose_turn_is_it == "Player":
+        print("Players Turn")
         row, col = user_input(player_tips)
         print_table(value_change(main_map, background_map, row, col, player_hits))
     elif whose_turn_is_it == "AI":
-        None
+        print("AI-s turn")
 
 
 def player_placement_input(id, size): # return shiplist with 5 items
@@ -240,6 +241,8 @@ def ai(background_map, ai_map, list_hits):
     #basic tipping
     posH, posV = random.randint(1, 9), random.randint(1, 9)
     value_change(ai_map, background_map, posV, posH, list_hits)
+    print("AI tip")
+    print_table(ai_map)
 
 def main():
     current_turn = 0
@@ -255,8 +258,8 @@ def main():
     ai_map = create_table()
     print_table(main_map)
     while win_condition(player_hits,win_condition_numbers) == False:
-        turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, player_hits)
-        ai(ai_background, ai_map,#ide kéne a list hits ami nem tudom mi )
+        turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, ai_hits)
+        ai(ai_background, ai_map, ai_hits)
         current_turn += 1
 
 
