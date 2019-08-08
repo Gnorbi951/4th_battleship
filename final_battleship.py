@@ -147,7 +147,7 @@ def whose_turn_is_it(current_turn):
         return "AI"
   
 def start_game(): #PhaseOne(Initializing the tables)
-    random_ship_position()
+    random_ship_position() 
 
 def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
     if whose_turn_is_it="Player":
@@ -243,6 +243,7 @@ def main():
     main_map = create_table()
     backgound_map= random_ship_position()
     print_table(main_map)
+    #guess()
     while win_condition(player_hits,win_condition_numberes) == False:
         row, col = user_input(player_tips)
         print_table(backgound_map)
