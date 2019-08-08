@@ -164,6 +164,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
     ship_list = [id, size, 0, 0, 0,]
     while col_input:
         try:
+            print("Insert your ship coordinates!")
             ship_list[4] = int(input("Column: "))
             if ship_list[4] >= 10 or ship_list[4] < 1:
                 raise Exception
@@ -194,7 +195,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
             
     return ship_list
 
-def player_ship_placement():#Bug
+def player_ship_placement(): # Bug = merge
 
     backgroundList = create_table()
 
@@ -215,7 +216,6 @@ def player_ship_placement():#Bug
         i += 1
         print_table(backgroundList)        
 
-player_ship_placement()
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
@@ -235,27 +235,34 @@ def store_tips(list_tips,col,row):#Store the guessed values in pairs
 def win_condition_change(list_hits,id_of_ship):
     list_hits.append(id_of_ship)
     print(list_hits)
-"""
+
+def ai(background_map, ai_map, list_hits):
+    #basic tipping
+    posH, posV = random.randint(1, 9), random.randint(1, 9)
+    value_change(ai_map, background_map, posV, posH, list_hits)
+
 def main():
-    current_turn=0
-    win_condition_numbers=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
-    player_tips=[]
-    player_hits=[1,4,2,1,2,1,2,3,3,3,4,4,4]
-    ai_tips=[]
-    ai_hits=[]
+    current_turn = 0
+    win_condition_numbers = [1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+    player_tips = []
+    player_hits = [1,4,2,1,2,1,2,3,3,3,4,4,4]
+    ai_tips = []
+    ai_hits = []
+    ai_background = player_ship_placement()
    # hit_count=0
     main_map = create_table()
-    background_map= random_ship_position()
+    background_map = random_ship_position()
     ai_map = create_table()
     print_table(main_map)
     while win_condition(player_hits,win_condition_numbers) == False:
         turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, player_hits)
+        ai(ai_background, ai_map,#ide kéne a list hits ami nem tudom mi )
         current_turn += 1
 
 
     print("Congratulations, You've won!")
 
-main()"""
+main()
 #lol
 # i added something for fun
 
