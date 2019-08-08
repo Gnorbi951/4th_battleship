@@ -127,30 +127,9 @@ def random_ship_position():
             i-=1
         i+=1
     return backgroundList
-
-def win_condition(hits_list):
-    if hit_count==14:
-        return True
-    else:
-        return False
-
-def whose_turn_is_it(current_turn):
-    if current_turn%2==0:
-        return "Player1"
-    else:
-        return "Player2"
   
 def start_game(): #PhaseOne(Initializing the tables)
     random_ship_position()
-
-def turns(whose_turn_is_it, player_tips, main_map, background_map, player_hits):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
-    if whose_turn_is_it == "Player1":
-        print("Player 1's Turn")
-        row, col = user_input(player_tips)
-        print_table(value_change(main_map, background_map, row, col, player_hits))
-    elif whose_turn_is_it == "Player2":
-        print("Player 2's turn")
-
 
 def player_placement_input(id, size): # return shiplist with 5 items
     row_input = True
