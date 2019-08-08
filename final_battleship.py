@@ -88,7 +88,7 @@ def random_generator(size):
    return rotation,positionH,positionV
 
 def check_for_ships(shipParameter,backgroundList): #randomshipposition
-    placable=True
+    placable = True
     j=0
     while j < shipParameter[1]:
         if shipParameter[2]==0:
@@ -207,17 +207,10 @@ def player_ship_placement():
             
 
         i += 1
-<<<<<<< HEAD
-                
+        print_table(backgroundList)        
         place_ships(shipParameter,backgroundList)
-=======
-        
-        print_table(backgroundList)
-        place_ships(shipParameter,backgroundList)
-    return backgroundList
 
 player_ship_placement()
->>>>>>> bc2a9f54deff4193cc1f3edb01d50fabe0d0e346
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
@@ -231,7 +224,6 @@ def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed alrea
         
 def store_tips(list_tips,col,row):#Store the guessed values in pairs
     tmp_pair=(col,row)
-<<<<<<< HEAD
     if tmp_pair not in list_tips:
         list_tips.append(tmp_pair)
     
@@ -239,12 +231,7 @@ def win_condition_change(list_hits,id_of_ship):
     list_hits.append(id_of_ship)
     print(list_hits)
 
-
-=======
-    #check if exist
-    list_tips.append(tmp_pair)
-"""  
->>>>>>> bc2a9f54deff4193cc1f3edb01d50fabe0d0e346
+"""
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
@@ -265,9 +252,8 @@ def main():
 
     print("Congratulations, You've won!")
 
-main()
+main()"""
 #lol
-"""
 
 
 
