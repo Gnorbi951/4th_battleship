@@ -142,15 +142,22 @@ def win_condition(hits_list,win_condition_numbers):
 
 def whose_turn_is_it(current_turn):
     if current_turn%2==0:
-        return "player"
+        return "Player"
     else:
         return "AI"
   
 def start_game(): #PhaseOne(Initializing the tables)
     random_ship_position()
 
-def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
-    pass
+def turns(whose_turn_is_it, player_tips, main_map, background_map, player_hits):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
+    if whose_turn_is_it == "Player":
+        row, col = user_input(player_tips)
+        print_table(value_change(main_map, background_map, row, col, player_hits))
+    elif whose_turn_is_it == "AI":
+        #ai()
+
+
+
 
 def player_placement_input(id, size): # return shiplist with 5 items
     row_input = True
@@ -189,7 +196,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
             
     return ship_list
 
-def player_ship_placement():
+def player_ship_placement():#Bug
 
     backgroundList = create_table()
 
@@ -207,10 +214,8 @@ def player_ship_placement():
             
 
         i += 1
-        print_table(backgroundList)        
+                
         place_ships(shipParameter,backgroundList)
-
-player_ship_placement()
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
@@ -231,28 +236,26 @@ def win_condition_change(list_hits,id_of_ship):
     list_hits.append(id_of_ship)
     print(list_hits)
 
-"""
 def main():
     current_turn=0
-    win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
+    win_condition_numbers=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
     player_tips=[]
     player_hits=[1,4,2,1,2,1,2,3,3,3,4,4,4]
     ai_tips=[]
     ai_hits=[]
    # hit_count=0
     main_map = create_table()
-    backgound_map= random_ship_position()
+    background_map= random_ship_position()
+    ai_map = create_table()
     print_table(main_map)
-    while win_condition(player_hits,win_condition_numberes) == False:
-        row, col = user_input(player_tips)
-        print_table(backgound_map)
-        print_table(value_change(main_map, backgound_map, row, col,player_hits))
-        #if check_for_hit(backgound_map, row, col) == True:
-            #hit_count += 1
+    while win_condition(player_hits,win_condition_numbers) == False:
+        turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, player_hits)
+        current_turn += 1
+
 
     print("Congratulations, You've won!")
 
-main()"""
+main()
 #lol
 
 
