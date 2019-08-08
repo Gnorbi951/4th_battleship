@@ -258,5 +258,3 @@ def main():
 main()
 #lol
 # i added something for fun
-
-agyhalott vagyok
