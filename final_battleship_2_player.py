@@ -1,32 +1,27 @@
 import random
 
-def user_input(player_tips=None): #need of checking the already guessed values
-  
-    isItGuessed=True# init
-    while isItGuessed==True:
-
-        row_input = True
-        col_input = True
-        while col_input:
-            try:
-                col = int(input("Column: "))
-                if col >= 10 or col < 1:
-                    raise Exception
-                col_input = False
-            except:
-                print("Input numbers between 1 and 9")
-                continue
-        while row_input:
-            try:
-                row = int(input("Row: "))
-                if row >= 10 or row < 1:
-                    raise Exception
-                row_input = False
-            except:
-                print("Input numbers between 1 and 9")
-                continue
-        isItGuessed=is_it_guessed(player_tips,row,col)#check the guessed numbers
-    store_tips(player_tips,row,col) #store the guessed numbers in pairs
+def user_input(): #need of checking the already guessed values
+ 
+    row_input = True
+    col_input = True
+    while col_input:
+        try:
+            col = int(input("Column: "))
+            if col >= 10 or col < 1:
+                raise Exception
+            col_input = False
+        except:
+            print("Input numbers between 1 and 9")
+            continue
+    while row_input:
+        try:
+            row = int(input("Row: "))
+            if row >= 10 or row < 1:
+                raise Exception
+            row_input = False
+        except:
+            print("Input numbers between 1 and 9")
+            continue
     
     return row, col
 
@@ -59,11 +54,11 @@ def check_for_hit(background_map,row,col):
    else:
        return False
   
-def value_change(main_map, background_map, row,col,list_hits):
+def value_change(main_map, background_map, row,col,player_hits):
    checkForHit = check_for_hit(background_map, row, col)
    if checkForHit == True:
        main_map[row-1][col-1]="x" #strig literal kimehet akár globális változóba
-       win_condition_change(list_hits,background_map[row-1][col-1])
+       player_hits += 1
        print("You've hit the ship")
    elif checkForHit == False:
        main_map[row-1][col-1]="M"
@@ -133,29 +128,28 @@ def random_ship_position():
         i+=1
     return backgroundList
 
-def win_condition(hits_list,win_condition_numbers):
-    sorted_list = sorted(hits_list)
-    if sorted_list==win_condition_numbers:
+def win_condition(hits_list):
+    if hit_count==14:
         return True
     else:
         return False
 
 def whose_turn_is_it(current_turn):
     if current_turn%2==0:
-        return "Player"
+        return "Player1"
     else:
-        return "AI"
+        return "Player2"
   
 def start_game(): #PhaseOne(Initializing the tables)
     random_ship_position()
 
 def turns(whose_turn_is_it, player_tips, main_map, background_map, player_hits):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
-    if whose_turn_is_it == "Player":
-        print("Players Turn")
+    if whose_turn_is_it == "Player1":
+        print("Player 1's Turn")
         row, col = user_input(player_tips)
         print_table(value_change(main_map, background_map, row, col, player_hits))
-    elif whose_turn_is_it == "AI":
-        print("AI-s turn")
+    elif whose_turn_is_it == "Player2":
+        print("Player 2's turn")
 
 
 def player_placement_input(id, size): # return shiplist with 5 items
@@ -215,7 +209,8 @@ def player_ship_placement(): # Bug = merge
             print(shipParameter)
 
         i += 1
-        print_table(backgroundList)        
+        print_table(backgroundList)
+    return backgroundList        
 
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
@@ -245,28 +240,36 @@ def ai(background_map, ai_map, list_hits):
     print_table(ai_map)
 
 def main():
-    current_turn = 0
-    win_condition_numbers = [1,1,1,2,2,2,3,3,3,3,4,4,4,4]
-    player_tips = []
-    player_hits = [1,4,2,1,2,1,2,3,3,3,4,4,4]
-    ai_tips = []
-    ai_hits = []
-    ai_background = player_ship_placement()
-   # hit_count=0
+    player_n_hits = 0
+    player2_n_hits = 0
     main_map = create_table()
-    background_map = random_ship_position()
-    ai_map = create_table()
+    player2_main_map = create_table()
+    print("Player 1! Place your ships")
+    player2_background_map = player_ship_placement()
+    print("Player 2! Place your ships")
+    background_map = player_ship_placement()
     print_table(main_map)
-    while win_condition(player_hits,win_condition_numbers) == False:
-        turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, ai_hits)
-        ai(ai_background, ai_map, ai_hits)
-        current_turn += 1
+    while True:
+        print("Player 1's turn")
+        row, col = user_input()
+        print_table(value_change(main_map, player2_background_map, row, col, player_n_hits))
+        if check_for_hit(player2_background_map, row, col) == True:
+            player_n_hits += 1
+        if player_n_hits == 14:
+            print("Player1 won the game!")
+            break
+        print("Player 2's turn")
+        row2, col2 = user_input()
+        print_table(value_change(player2_main_map, player2_background_map, row2, col2, player2_n_hits))
+        if check_for_hit(background_map, row2, col2) == True:
+            player2_n_hits += 1
+        if player2_n_hits == 14:
+            print("Player 2 won the game!")
+            break
 
-
-    print("Congratulations, You've won!")
 
 main()
-#lol
-# i added something for fun
+
+
 
 
