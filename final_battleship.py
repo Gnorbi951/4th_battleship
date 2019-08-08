@@ -32,15 +32,15 @@ def user_input(player_tips=None): #need of checking the already guessed values
 
 def create_table():
  i=0
- tomb = [] #tömböt row-ra
+ my_array = [] #tömböt row-ra
  table = []
  while i < 9:
      j = 0
-     tomb = []
+     my_array = []
      while j < 9:
-         tomb.append(0)
+         my_array.append(0)
          j+=1
-     table.append(tomb)
+     table.append(my_array)
      i += 1
  return table
 
@@ -154,9 +154,7 @@ def turns(whose_turn_is_it, player_tips, main_map, background_map, player_hits):
         row, col = user_input(player_tips)
         print_table(value_change(main_map, background_map, row, col, player_hits))
     elif whose_turn_is_it == "AI":
-        #ai()
-
-
+        None
 
 
 def player_placement_input(id, size): # return shiplist with 5 items
@@ -166,20 +164,20 @@ def player_placement_input(id, size): # return shiplist with 5 items
     ship_list = [id, size, 0, 0, 0,]
     while col_input:
         try:
-            ship_list[3] = int(input("Column: "))
-            if ship_list[3] >= 10 or ship_list[3] < 1:
+            ship_list[4] = int(input("Column: "))
+            if ship_list[4] >= 10 or ship_list[4] < 1:
                 raise Exception
-            ship_list[3] = ship_list[3] -1
+            ship_list[4] = ship_list[4] -1
             col_input = False
         except:
             print("Input numbers between 1 and 9")
             continue
     while row_input:
         try:
-            ship_list[4] = int(input("Row: "))
-            if ship_list[4] >= 10 or ship_list[4] < 1:
+            ship_list[3] = int(input("Row: "))
+            if ship_list[3] >= 10 or ship_list[3] < 1:
                 raise Exception
-            ship_list[4] = ship_list[4] -1
+            ship_list[3] = ship_list[3] -1
             row_input = False
         except:
           print("Input numbers between 1 and 9")
@@ -201,7 +199,7 @@ def player_ship_placement():#Bug
     backgroundList = create_table()
 
     i=0
-    while i <= 4:
+    while i < 4:
         shipParameter=[]
         if i < 2:
             size=3
@@ -211,11 +209,13 @@ def player_ship_placement():#Bug
         else:
             size=4
             shipParameter = player_placement_input(i+1, size)
-            
+            place_ships(shipParameter,backgroundList)
+            print(shipParameter)
 
         i += 1
-                
-        place_ships(shipParameter,backgroundList)
+        print_table(backgroundList)        
+
+player_ship_placement()
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
@@ -235,7 +235,7 @@ def store_tips(list_tips,col,row):#Store the guessed values in pairs
 def win_condition_change(list_hits,id_of_ship):
     list_hits.append(id_of_ship)
     print(list_hits)
-
+"""
 def main():
     current_turn=0
     win_condition_numbers=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
@@ -255,7 +255,7 @@ def main():
 
     print("Congratulations, You've won!")
 
-main()
+main()"""
 #lol
 # i added something for fun
 
