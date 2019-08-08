@@ -267,11 +267,17 @@ def player_ship_placement(): # Bug = merge
         if i < 2:
             size=3
             shipParameter = player_placement_input(i+1, size)
-            place_ships(shipParameter,backgroundList)
+            #place_ships(shipParameter,backgroundList)
         else:
             size=4
             shipParameter = player_placement_input(i+1, size)
+            #place_ships(shipParameter,backgroundList)
+        
+        if check_for_ships(shipParameter,backgroundList)==True:
             place_ships(shipParameter,backgroundList)
+        else:
+            i-=1
+            print("That field is already taken")
         i += 1
         print_table(backgroundList) 
     return backgroundList       
