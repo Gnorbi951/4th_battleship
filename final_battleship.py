@@ -142,7 +142,7 @@ def win_condition(hits_list,win_condition_numbers):
 
 def whose_turn_is_it(current_turn):
     if current_turn%2==0:
-        return "player"
+        return "Player"
     else:
         return "AI"
   
@@ -150,7 +150,9 @@ def start_game(): #PhaseOne(Initializing the tables)
     random_ship_position()
 
 def guess(whose_turn_is_it):#PhaseTwo(The player or the AI guess a coordinate based on whose turn is it)
-    pass
+    if whose_turn_is_it="Player":
+        if win_condition(player_hits,win_condition_numberes
+
 
 def player_placement_input(id, size): # return shiplist with 5 items
     row_input = True
@@ -189,7 +191,7 @@ def player_placement_input(id, size): # return shiplist with 5 items
             
     return ship_list
 
-def player_ship_placement():
+def player_ship_placement():#Bug
 
     backgroundList = create_table()
 
@@ -207,17 +209,8 @@ def player_ship_placement():
             
 
         i += 1
-<<<<<<< HEAD
                 
         place_ships(shipParameter,backgroundList)
-=======
-        
-        print_table(backgroundList)
-        place_ships(shipParameter,backgroundList)
-    return backgroundList
-
-player_ship_placement()
->>>>>>> bc2a9f54deff4193cc1f3edb01d50fabe0d0e346
 
 def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed already
     guessed_pair=(col,row)
@@ -231,7 +224,6 @@ def is_it_guessed(list_tips,col,row):#Check if the coordinates are guessed alrea
         
 def store_tips(list_tips,col,row):#Store the guessed values in pairs
     tmp_pair=(col,row)
-<<<<<<< HEAD
     if tmp_pair not in list_tips:
         list_tips.append(tmp_pair)
     
@@ -240,11 +232,6 @@ def win_condition_change(list_hits,id_of_ship):
     print(list_hits)
 
 
-=======
-    #check if exist
-    list_tips.append(tmp_pair)
-"""  
->>>>>>> bc2a9f54deff4193cc1f3edb01d50fabe0d0e346
 def main():
     current_turn=0
     win_condition_numberes=[1,1,1,2,2,2,3,3,3,3,4,4,4,4]
@@ -267,7 +254,7 @@ def main():
 
 main()
 #lol
-"""
+
 
 
 
