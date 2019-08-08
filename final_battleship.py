@@ -248,20 +248,10 @@ def main():
     background_map= random_ship_position()
     ai_map = create_table()
     print_table(main_map)
-<<<<<<< HEAD
-    #guess()
-    while win_condition(player_hits,win_condition_numberes) == False:
-        row, col = user_input(player_tips)
-        print_table(backgound_map)
-        print_table(value_change(main_map, backgound_map, row, col,player_hits))
-        #if check_for_hit(backgound_map, row, col) == True:
-            #hit_count += 1
-=======
     while win_condition(player_hits,win_condition_numbers) == False:
         turns(whose_turn_is_it(current_turn), player_tips, main_map, background_map, player_hits)
         current_turn += 1
 
->>>>>>> f2d44f10367497b22c4c45c07cbf153a5ea6b9a5
 
     print("Congratulations, You've won!")
 
@@ -269,4 +259,4 @@ main()
 #lol
 
 
-
+agyhalott vagyok
